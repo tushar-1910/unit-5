@@ -1,15 +1,22 @@
+let count = localStorage.getItem('count') || 1;
 let url;
 function getpokemon() {
+    count++;
+    localStorage.setItem('count',count);
     url = "https://pokeapi.co/api/v2/pokemon/";
     fetch(url).then(Response => {
         return Response.json()
     }).then(result => {
         console.log(result)
+        console.log("here")
         localStorage.setItem('pokemonData', JSON.stringify(result.results))
     })
 }
-getpokemon()
 
+if(count == 1)
+{
+    getpokemon()
+}
 let pokemonData = JSON.parse(localStorage.getItem('pokemonData')) || [];
 
 function display(pokemonData) {
